@@ -1,0 +1,43 @@
+server:
+  port: 8080
+  error:
+    include-message: never
+    include-binding-errors: never
+    include-stacktrace: never
+    include-exception: false
+spring:
+  application:
+    name: medivault-security-backend
+  main:
+    banner-mode: off
+  datasource:
+    url: jdbc:h2:mem:medivaultdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+  jpa:
+    hibernate:
+      ddl-auto: none
+    show-sql: false
+    open-in-view: false
+  h2:
+    console:
+      enabled: false
+  sql:
+    init:
+      mode: always
+  task:
+    execution:
+      pool:
+        core-size: 1
+        max-size: 2
+        queue-capacity: 200
+      shutdown:
+        await-termination: true
+        await-termination-period: 10s
+medivault:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:}
+      expiration-ms: 3600000
+    trusted-proxies: ${MEDIVAULT_TRUSTED_PROXIES:}
